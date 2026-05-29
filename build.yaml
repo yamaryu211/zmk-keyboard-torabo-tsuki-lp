@@ -1,27 +1,11 @@
 include:
   - board: bmp_boost
     shield: torabo_tsuki_lp_left
-    snippet: "studio-rpc-usb-uart split-central input-trackball input-listener"
-    artifact-name: torabo_tsuki_lp_left_central
-  - board: bmp_boost
-    shield: torabo_tsuki_lp_right
-    snippet: studio-rpc-usb-uart
-    artifact-name: torabo_tsuki_lp_right_peripheral
-  - board: bmp_boost
-    shield: torabo_tsuki_lp_left
-    snippet: studio-rpc-usb-uart
+    snippet: "studio-rpc-usb-uart input-trackpad-mini input-split"
     artifact-name: torabo_tsuki_lp_left_peripheral
   - board: bmp_boost
     shield: torabo_tsuki_lp_right
-    snippet: "studio-rpc-usb-uart split-central input-trackball input-listener"
-    artifact-name: torabo_tsuki_lp_right_central
-  - board: bmp_boost
-    shield: torabo_tsuki_lp_left
-    snippet: "studio-rpc-usb-uart input-trackball input-split"
-    artifact-name: torabo_tsuki_lp_double_ball_left_peripheral
-  - board: bmp_boost
-    shield: torabo_tsuki_lp_right
     snippet: "studio-rpc-usb-uart split-central input-trackball input-listener input-split-listener"
-    artifact-name: torabo_tsuki_lp_double_ball_right_central
+    artifact-name: torabo_tsuki_lp_right_central
   - board: bmp_boost
     shield: settings_reset
