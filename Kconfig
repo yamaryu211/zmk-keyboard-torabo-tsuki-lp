@@ -1,0 +1,4 @@
+config ZMK_INPUT_PROCESSOR_SCROLL_ACCELERATION
+    bool "Enable scroll acceleration input processor"
+    default y
+    depends on ZMK_POINTING
