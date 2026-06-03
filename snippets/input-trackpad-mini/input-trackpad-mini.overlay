@@ -16,7 +16,7 @@
         power-gpios = <&gpio0 8 (GPIO_ACTIVE_HIGH | NRF_GPIO_DRIVE_H1)>;
         init-symbol = "mini_trackpad_iqs7211e_init";
         init-length = <217>;
-        scroller-mode;
-        v-invert;
+        /* scroller-mode and v-invert removed: direction/sensitivity are now
+         * controlled per-layer via input-processors in keymap.keymap */
     };
 };
