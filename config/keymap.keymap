@@ -26,6 +26,7 @@
 #define SCROLL_HOR_MAC 13
 #define GESTURE_WIN 14
 #define GESTURE_MAC 15
+#define WIN_SCROLL_DIR 16
 
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 
@@ -199,38 +200,6 @@
     };
 };
 
-// トラックパッド入力リスナー設定（右手 Central ビルドのみ）
-// scroller-mode を外し REL_X/Y で受け取り、慣性 + スクロール変換をプロセッサ側で行う。
-// サブノードが先に実行されるため、慣性プロセッサは各サブノードの先頭に配置する。
-// 方向調整: INPUT_TRANSFORM_Y_INVERT を外すと逆方向になる。要動作確認。
-
-#if CONFIG_SHIELD_TORABO_TSUKI_LP_RIGHT
-
-&pointing_device_split_listener {
-
-    // Mac レイヤー群: 縦スクロール感度 1/3、Y 反転なし
-    scroll_mac {
-        layers = <DEFAULT_MAC NUM_MAC SYMBOL_MAC FUNC_SCROLL_MAC SCROLL_VER_MAC SCROLL_HOR_MAC GESTURE_MAC>;
-        input-processors =
-            <&zip_scroll_inertia>,
-            <&zip_xy_scaler 1 3>,
-            // <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_xy_to_scroll_mapper>;
-    };
-
-    // Win レイヤー群: 縦スクロール感度 3/2、Y 反転
-    scroll_win {
-        layers = <DEFAULT_WIN NUM_WIN SYMBOL_WIN FUNC_SCROLL_WIN SCROLL_VER_WIN SCROLL_HOR_WIN AML KBD_SETTING GESTURE_WIN>;
-        input-processors =
-            <&zip_scroll_inertia>,
-            <&zip_xy_scaler 3 2>,
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_xy_to_scroll_mapper>;
-    };
-};
-
-#endif /* CONFIG_SHIELD_TORABO_TSUKI_LP_RIGHT */
-
 / {
     /omit-if-no-ref/
 
@@ -261,17 +230,6 @@
         require-prior-idle-ms = <0>;
         reset-timeout-ms = <200>;
     };
-
-#if CONFIG_SHIELD_TORABO_TSUKI_LP_RIGHT
-    zip_scroll_inertia: zip_scroll_inertia {
-        compatible = "zmk,input-processor-scroll-inertia";
-        #input-processor-cells = <0>;
-        device = <&pointing_device_split>;
-        decay-permille = <920>;
-        stop-threshold-q8 = <96>;
-        idle-timeout-ms = <50>;
-    };
-#endif /* CONFIG_SHIELD_TORABO_TSUKI_LP_RIGHT */
 
     zip_scroll_acceleration: zip_scroll_acceleration {
         compatible = "zmk,input-processor-scroll-acceleration";
@@ -372,7 +330,8 @@
             bindings =
                 <&bt BT_SEL 0 &bt BT_DISC 1 &bt BT_DISC 2 &bt BT_DISC 3 &bt BT_DISC 4>,
                 <&macro_wait_time 200>,
-                <&df 0>;
+                <&df 0>,
+                <&tog_on WIN_SCROLL_DIR>;
 
             label = "BT0";
         };
@@ -383,7 +342,8 @@
             bindings =
                 <&bt BT_SEL 1 &bt BT_DISC 0 &bt BT_DISC 2 &bt BT_DISC 3 &bt BT_DISC 4>,
                 <&macro_wait_time 200>,
-                <&df 1>;
+                <&df 1>,
+                <&tog_off WIN_SCROLL_DIR>;
 
             label = "BT1";
         };
@@ -394,7 +354,8 @@
             bindings =
                 <&bt BT_SEL 2 &bt BT_DISC 0 &bt BT_DISC 1 &bt BT_DISC 3 &bt BT_DISC 4>,
                 <&macro_wait_time 200>,
-                <&df 1>;
+                <&df 1>,
+                <&tog_off WIN_SCROLL_DIR>;
 
             label = "BT2_IPAD";
         };
@@ -405,7 +366,8 @@
             bindings =
                 <&bt BT_SEL 3 &bt BT_DISC 0 &bt BT_DISC 1 &bt BT_DISC 2 &bt BT_DISC 4>,
                 <&macro_wait_time 200>,
-                <&df 1>;
+                <&df 1>,
+                <&tog_off WIN_SCROLL_DIR>;
 
             label = "BT3_IPHONE";
         };
@@ -778,10 +740,22 @@
 
         GESTURE_MAC {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans  
-&trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans  
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  
-&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &none   &none   &trans  &trans  
+&trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &none   &none   &trans  &trans
+            >;
+        };
+
+        // レイヤー16: WIN_SCROLL_DIR（Winスクロール方向トグル）
+        // bt0_win で tog_on、bt1_mac/bt2_iPad/bt3_iPhone で tog_off
+
+        WIN_SCROLL_DIR {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &none   &none   &trans  &trans
             >;
         };
     };

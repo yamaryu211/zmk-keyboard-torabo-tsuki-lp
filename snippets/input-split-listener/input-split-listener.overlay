@@ -13,6 +13,16 @@
         compatible = "zmk,input-listener";
         device = <&pointing_device_split>;
         status = "okay";
-        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
-     };
+        /* デフォルト: Mac 方向（サブノードが一致しない場合のフォールバック） */
+        input-processors = <&zip_xy_scaler 1 3>, <&zip_xy_to_scroll_mapper>;
+
+        scroll_win {
+            /* WIN_SCROLL_DIR (16): bt0_win で tog_on、bt1_mac 等で tog_off */
+            layers = <16>;
+            input-processors =
+                <&zip_xy_scaler 3 2>,
+                <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+                <&zip_xy_to_scroll_mapper>;
+        };
+    };
 };
