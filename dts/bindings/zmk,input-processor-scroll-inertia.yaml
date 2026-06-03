@@ -17,13 +17,6 @@ properties:
     required: true
     const: 0
 
-  device:
-    type: phandle
-    required: true
-    description: |
-      The source input device (e.g. pointing_device_split) used to re-inject
-      inertia events into the listener chain.
-
   decay-permille:
     type: int
     default: 920
@@ -46,5 +39,11 @@ properties:
     description: |
       Milliseconds of no incoming XY events before inertia starts.
       Should be longer than the inter-event gap during normal scrolling (~10 ms).
+
+  track-remainders:
+    type: boolean
+    description: |
+      Required by zmk,input-listener for remainder-tracking slot allocation.
+      The inertia processor itself does not use remainders.
 
 input-processor-cells: []

@@ -6,6 +6,8 @@
  * Injected events flow through the full listener chain (including zip_xy_to_scroll_mapper).
  *
  * Place this processor FIRST in each sub-node so it sees raw XY events before conversion.
+ *
+ * The source device is captured automatically from the first event; no DTS 'device' property needed.
  */
 
 #define DT_DRV_COMPAT zmk_input_processor_scroll_inertia
@@ -24,7 +26,6 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define Q8_ONE          256
 
 struct scroll_inertia_config {
-    const struct device *device;
     int32_t decay_permille;
     int32_t stop_threshold_q8;
     int32_t idle_timeout_ms;
@@ -32,6 +33,7 @@ struct scroll_inertia_config {
 
 struct scroll_inertia_data {
     const struct device *proc_dev;
+    const struct device *source_dev; /* captured from event->dev on first real event */
     struct k_work_delayable work;
 
     int32_t vel_x_q8;
@@ -74,6 +76,10 @@ static void inertia_work_handler(struct k_work *work) {
         CONTAINER_OF(dwork, struct scroll_inertia_data, work);
     const struct scroll_inertia_config *cfg = data->proc_dev->config;
 
+    if (!data->source_dev) {
+        return;
+    }
+
     /* First fire after idle timeout: check if there's enough velocity to coast */
     if (!data->inertia_active) {
         bool x_ok = inertia_abs(data->vel_x_q8) >= cfg->stop_threshold_q8;
@@ -115,10 +121,10 @@ static void inertia_work_handler(struct k_work *work) {
      * The injecting flag prevents this processor from updating velocity for its own injected events. */
     data->injecting = true;
     if (x_delta != 0) {
-        input_report_rel(cfg->device, INPUT_REL_X, x_delta, (y_delta == 0), K_FOREVER);
+        input_report_rel(data->source_dev, INPUT_REL_X, x_delta, (y_delta == 0), K_FOREVER);
     }
     if (y_delta != 0) {
-        input_report_rel(cfg->device, INPUT_REL_Y, y_delta, true, K_FOREVER);
+        input_report_rel(data->source_dev, INPUT_REL_Y, y_delta, true, K_FOREVER);
     }
     data->injecting = false;
 
@@ -150,6 +156,11 @@ static int scroll_inertia_handle_event(const struct device *dev, struct input_ev
         return ZMK_INPUT_PROC_CONTINUE;
     }
 
+    /* Capture source device from first real event */
+    if (!data->source_dev) {
+        data->source_dev = event->dev;
+    }
+
     /* Real event: stop any running inertia and restart the idle timer */
     data->inertia_active = false;
 
@@ -169,6 +180,7 @@ static int scroll_inertia_handle_event(const struct device *dev, struct input_ev
 static int scroll_inertia_init(const struct device *dev) {
     struct scroll_inertia_data *data = dev->data;
     data->proc_dev = dev;
+    data->source_dev = NULL;
     k_work_init_delayable(&data->work, inertia_work_handler);
     data->vel_x_q8 = 0;
     data->vel_y_q8 = 0;
@@ -188,7 +200,6 @@ static const struct zmk_input_processor_driver_api scroll_inertia_driver_api = {
 #define SCROLL_INERTIA_INST(n)                                                               \
     static struct scroll_inertia_data scroll_inertia_data_##n = {};                          \
     static const struct scroll_inertia_config scroll_inertia_config_##n = {                  \
-        .device            = DEVICE_DT_GET(DT_INST_PHANDLE(n, device)),                      \
         .decay_permille    = DT_INST_PROP_OR(n, decay_permille, 920),                        \
         .stop_threshold_q8 = DT_INST_PROP_OR(n, stop_threshold_q8, 96),                     \
         .idle_timeout_ms   = DT_INST_PROP_OR(n, idle_timeout_ms, 50),                       \
