@@ -121,10 +121,10 @@ static void inertia_work_handler(struct k_work *work) {
      * The injecting flag prevents this processor from updating velocity for its own injected events. */
     data->injecting = true;
     if (x_delta != 0) {
-        input_report_rel(data->source_dev, INPUT_REL_X, x_delta, (y_delta == 0), K_FOREVER);
+        input_report_rel(data->source_dev, INPUT_REL_X, x_delta, (y_delta == 0), K_NO_WAIT);
     }
     if (y_delta != 0) {
-        input_report_rel(data->source_dev, INPUT_REL_Y, y_delta, true, K_FOREVER);
+        input_report_rel(data->source_dev, INPUT_REL_Y, y_delta, true, K_NO_WAIT);
     }
     data->injecting = false;
 
