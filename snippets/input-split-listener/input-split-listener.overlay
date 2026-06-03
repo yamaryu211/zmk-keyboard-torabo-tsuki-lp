@@ -39,7 +39,8 @@
         /* デフォルト: Mac 方向（WIN_SCROLL_DIR が OFF のとき） */
         input-processors =
             <&zip_scroll_inertia_tp>,
-            <&zip_xy_scaler 1 3>,
+            <&zip_xy_scaler 1 4>,
+            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
             <&zip_xy_to_scroll_mapper>,
             <&zip_scroll_snap_tp>;
 
