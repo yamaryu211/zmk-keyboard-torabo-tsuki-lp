@@ -187,7 +187,7 @@
 
     volume_keys {
         layers = <KBD_SETTING>;
-        input-processors = <&zip_cursor_snap>, <&zip_volume_keys>;
+        input-processors = <&zip_volume_keys>;
 
         process-next;
     };
@@ -263,10 +263,10 @@
         #input-processor-cells = <0>;
         track_remainders;
         bindings =
-            <&kp C_VOLUME_UP>,
             <&kp C_VOLUME_DOWN>,
-            <&kp C_BRIGHTNESS_INC>,
-            <&kp C_BRIGHTNESS_DEC>;
+            <&kp C_VOLUME_UP>,
+            <&kp C_BRIGHTNESS_DEC>,
+            <&kp C_BRIGHTNESS_INC>;
 
         tick = <10>;
         wait-ms = <5>;
