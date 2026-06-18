@@ -268,8 +268,9 @@
             <&kp C_BRIGHTNESS_DEC>,
             <&kp C_BRIGHTNESS_INC>;
 
-        tick = <10>;
-        wait-ms = <5>;
+        tick = <6>;                     // 低速時の感度を上げる（10→6: 少ない移動で1ステップ）
+        wait-ms = <25>;                 // 高速時の連続発火を抑える（5→25: 一気に変化しすぎない）
+        max_pending_activations = <3>;  // 1報告で貯まる上限を絞る（既定5→3: 高速時の上振れ抑制）
         tap-ms = <5>;
         mode = <1>;
     };
