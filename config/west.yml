@@ -44,11 +44,13 @@ manifest:
       remote: te9no
       revision: main
     - name: zmk-scroll-snap
-      remote: kot149
-      revision: v1
+      remote: yamaryu211
+      revision: yamaryu211
     - name: zmk-userspace
       remote: elpekenin
-      revision: main
+      # main が ZMK 最新向けに更新され v0.3 と非互換になったため、
+      # v0.3 互換の最後のコミット(7733e66 の直前)に固定
+      revision: f65693dff35d99c82be22e30f5fe41eafb7cb4f3
     - name: zmk-input-processor-temp-layer-threshold
       remote: yamaryu211
       revision: main

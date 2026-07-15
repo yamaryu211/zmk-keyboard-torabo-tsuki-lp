@@ -21,14 +21,14 @@
     zip_scroll_snap_tp: zip_scroll_snap_tp {
         compatible = "zmk,input-processor-scroll-snap";
         #input-processor-cells = <0>;
-        x-threshold = <5 8>;
-        y-threshold = <8 5>;
-        xy-threshold = <5 8>;
+        x-threshold = <3 4>;
+        y-threshold = <4 3>;
+        xy-threshold = <3 4>;
         require-n-samples = <4>;
         immediate-snap-threshold = <800>;
-        lock-duration-ms = <300>;
-        lock-for-next-n-events = <10>;
-        idle-reset-timeout-ms = <300>;
+        lock-duration-ms = <150>;
+        lock-for-next-n-events = <4>;
+        idle-reset-timeout-ms = <800>;
         track-remainders;
     };
 

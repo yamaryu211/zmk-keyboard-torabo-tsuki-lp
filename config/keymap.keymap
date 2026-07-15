@@ -55,14 +55,14 @@
 };
 
 &zip_scroll_snap {
-    x-threshold = <5 8>;
-    y-threshold = <8 5>;
-    xy-threshold = <5 8>;
+    x-threshold = <3 4>;
+    y-threshold = <4 3>;
+    xy-threshold = <3 4>;
     require-n-samples = <4>;
     immediate-snap-threshold = <800>;
-    lock-duration-ms = <300>;
-    lock-for-next-n-events = <10>;
-    idle-reset-timeout-ms = <300>;
+    lock-duration-ms = <150>;
+    lock-for-next-n-events = <4>;
+    idle-reset-timeout-ms = <800>;
 };
 
 &mmv {
@@ -113,7 +113,8 @@
             <&zip_xy_scaler 1 5>,
             <&zip_xy_scaler 1 5>,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_xy_to_scroll_mapper>;
+            <&zip_xy_to_scroll_mapper>,
+            <&zip_scroll_snap>;
     };
 
     // 自由スクロール（Windows）
@@ -124,7 +125,8 @@
             <&zip_scroll_acceleration 6>,
             <&zip_xy_scaler 1 2>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_xy_to_scroll_mapper>;
+            <&zip_xy_to_scroll_mapper>,
+            <&zip_scroll_snap>;
     };
 
     // 縦スクロール（Mac）
