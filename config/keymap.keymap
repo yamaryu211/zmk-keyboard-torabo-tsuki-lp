@@ -110,11 +110,11 @@
         layers = <FUNC_SCROLL_MAC>;
         input-processors =
             <&zip_scroll_acceleration 6>,
-            <&zip_xy_scaler 1 5>,
-            <&zip_xy_scaler 1 5>,
+            <&zip_xy_scaler 1 8>,
+            // <&zip_xy_scaler 1 4>,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_snap>;
+            <&zip_xy_to_scroll_mapper>;
+            // <&zip_scroll_snap>;
     };
 
     // 自由スクロール（Windows）
@@ -125,8 +125,8 @@
             <&zip_scroll_acceleration 6>,
             <&zip_xy_scaler 1 2>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_snap>;
+            <&zip_xy_to_scroll_mapper>;
+            // <&zip_scroll_snap>;
     };
 
     // 縦スクロール（Mac）
@@ -135,8 +135,8 @@
         layers = <SCROLL_VER_MAC>;
         input-processors =
             <&zip_scroll_acceleration 6>,
-            <&zip_y_scaler 1 5>,
-            <&zip_y_scaler 1 5>,
+            <&zip_y_scaler 1 8>,
+            // <&zip_y_scaler 1 4>,
             <&zip_x_scaler 0 1>,
             <&zip_xy_to_scroll_mapper>;
     };
@@ -147,8 +147,8 @@
         layers = <SCROLL_HOR_MAC>;
         input-processors =
             <&zip_scroll_acceleration 6>,
-            <&zip_x_scaler 1 5>,
-            <&zip_x_scaler 1 5>,
+            <&zip_x_scaler 1 8>,
+            // <&zip_x_scaler 1 8>,
             <&zip_y_scaler 0 1>,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
             <&zip_xy_to_scroll_mapper>;
@@ -252,7 +252,7 @@
         compatible = "zmk,input-processor-keybind";
         #input-processor-cells = <0>;
         track_remainders;
-        bindings = <&kp RIGHT>, <&kp LEFT>, <&kp UP>, <&kp DOWN>;
+        bindings = <&kp LEFT>, <&kp RIGHT>, <&kp DOWN>, <&kp UP>;
 
         tick = <10>;
         wait-ms = <5>;
