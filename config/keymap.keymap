@@ -111,7 +111,7 @@
         input-processors =
             <&zip_scroll_acceleration 6>,
             <&zip_xy_scaler 1 8>,
-            // <&zip_xy_scaler 1 4>,,
+            // <&zip_xy_scaler 1 4>,,,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
             <&zip_xy_to_scroll_mapper>;
 
@@ -138,7 +138,7 @@
         input-processors =
             <&zip_scroll_acceleration 6>,
             <&zip_y_scaler 1 8>,
-            // <&zip_y_scaler 1 4>,,
+            // <&zip_y_scaler 1 4>,,,
             <&zip_x_scaler 0 1>,
             <&zip_xy_to_scroll_mapper>;
     };
@@ -150,7 +150,7 @@
         input-processors =
             <&zip_scroll_acceleration 6>,
             <&zip_x_scaler 1 8>,
-            // <&zip_x_scaler 1 8>,,
+            // <&zip_x_scaler 1 8>,,,
             <&zip_y_scaler 0 1>,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
             <&zip_xy_to_scroll_mapper>;
@@ -578,7 +578,7 @@
 &kp Q             &kp W        &kp E             &kp R         &kp T                                                        &kp Y            &kp U  &kp I      &kp O       &kp P
 &kp A             &kp S        &kp D             &kp F         &kp G                                                        &kp H            &kp J  &kp K      &lt 10 L    &lt 12 MINUS
 &mt RSHIFT Z      &kp X        &kp C             &kp V         &kp B             &kp LC(N0)                &kp LA(LC(TAB))  &kp N            &kp M  &kp COMMA  &kp PERIOD  &mt RSHIFT SLASH
-&lt 2 LANGUAGE_2  &kp LS(F10)  &mt LEFT_WIN TAB  &kp LEFT_ALT  &mt LCTRL DELETE  &mt LEFT_SHIFT SPACE      &lt 2 TAB        &lt 4 BACKSPACE  &none  &none      &kp RETURN  &lt 6 LANGUAGE_1
+&lt 2 LANGUAGE_2  &kp LS(F10)  &mt LEFT_WIN TAB  &kp LEFT_ALT  &mt LCTRL DELETE  &mt LEFT_SHIFT SPACE      &lt 2 ENTER      &lt 4 BACKSPACE  &none  &none      &kp ESCAPE  &lt 6 LANGUAGE_1
             >;
         };
 
@@ -589,7 +589,7 @@
 &kp Q             &kp W                 &kp E      &kp R         &kp T                                                           &kp Y            &kp U  &kp I      &kp O       &kp P
 &kp A             &kp S                 &kp D      &kp F         &kp G                                                           &kp H            &kp J  &kp K      &lt 11 L    &lt 13 MINUS
 &mt RSHIFT Z      &kp X                 &kp C      &kp V         &kp B                    &kp LG(N0)                &kp LA(TAB)  &kp N            &kp M  &kp COMMA  &kp PERIOD  &mt RSHIFT SLASH
-&lt 3 LANGUAGE_2  &kp LC(LEFT_COMMAND)  &kp LCTRL  &kp LEFT_ALT  &mt LEFT_COMMAND DELETE  &mt LEFT_SHIFT SPACE      &lt 3 TAB    &lt 5 BACKSPACE  &none  &none      &kp RETURN  &lt 7 LANGUAGE_1
+&lt 3 LANGUAGE_2  &kp LC(LEFT_COMMAND)  &kp LCTRL  &kp LEFT_ALT  &mt LEFT_COMMAND DELETE  &mt LEFT_SHIFT SPACE      &lt 3 ENTER  &lt 5 BACKSPACE  &none  &none      &kp ESCAPE  &lt 7 LANGUAGE_1
             >;
         };
 
@@ -598,7 +598,7 @@
         NUM_WIN {
             bindings = <
 &sys_reset    &kp NUMBER_7  &kp NUMBER_8      &kp NUMBER_9      &none                                                      &kp LG(LS(LEFT))  &kp LG(UP_ARROW)  &kp LG(TAB)  &kp LG(LS(RIGHT))  &kp LA(PRINTSCREEN)
-&none         &kp NUMBER_4  &kp NUMBER_5      &kp NUMBER_6      &none                                                      &kp LEFT          &kp DOWN          &kp UP       &kp RIGHT          &kp RETURN
+&none         &kp NUMBER_4  &kp NUMBER_5      &kp NUMBER_6      &none                                                      &kp LEFT          &kp DOWN          &kp UP       &kp RIGHT          &kp LS(EQUAL)
 &kp NUMBER_0  &kp NUMBER_1  &kp NUMBER_2      &kp NUMBER_3      &none                 &kp LESS_THAN      &kp GREATER_THAN  &kp HOME          &kp PAGE_DOWN     &kp PAGE_UP  &kp END            &kp ASTERISK
 &mo 9         &trans        &kp LS(LEFT_WIN)  &kp LS(LEFT_ALT)  &kp LS(LEFT_CONTROL)  &trans             &trans            &trans            &none             &none        &none              &mo 9
             >;
@@ -609,7 +609,7 @@
         NUM_MAC {
             bindings = <
 &sys_reset  &kp N7                  &kp N8                &kp N9            &none                                                  &kp LC(LA(LG(LEFT)))  &kp LC(LA(RETURN))  &kp LC(UP_ARROW)  &kp LC(LA(LG(RIGHT)))  &kp LS(LG(NUMBER_4))
-&none       &kp N4                  &kp N5                &kp N6            &none                                                  &kp LEFT              &kp DOWN            &kp UP            &kp RIGHT              &kp RETURN
+&none       &kp N4                  &kp N5                &kp N6            &none                                                  &kp LEFT              &kp DOWN            &kp UP            &kp RIGHT              &kp LS(EQUAL)
 &kp N0      &kp N1                  &kp N2                &kp N3            &none             &kp LESS_THAN      &kp GREATER_THAN  &kp LG(LEFT)          &kp LG(DOWN)        &kp LG(UP)        &kp LG(RIGHT)          &kp ASTERISK
 &mo 9       &kp LC(LG(LEFT_SHIFT))  &kp LS(LEFT_CONTROL)  &kp LS(LEFT_ALT)  &kp LS(LEFT_GUI)  &trans             &trans            &trans                &none               &none             &none                  &mo 9
             >;
