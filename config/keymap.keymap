@@ -111,7 +111,7 @@
         input-processors =
             <&zip_scroll_acceleration 6>,
             <&zip_xy_scaler 1 8>,
-            // <&zip_xy_scaler 1 4>,,,
+            // <&zip_xy_scaler 1 4>,,,,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
             <&zip_xy_to_scroll_mapper>;
 
@@ -138,7 +138,7 @@
         input-processors =
             <&zip_scroll_acceleration 6>,
             <&zip_y_scaler 1 8>,
-            // <&zip_y_scaler 1 4>,,,
+            // <&zip_y_scaler 1 4>,,,,
             <&zip_x_scaler 0 1>,
             <&zip_xy_to_scroll_mapper>;
     };
@@ -150,7 +150,7 @@
         input-processors =
             <&zip_scroll_acceleration 6>,
             <&zip_x_scaler 1 8>,
-            // <&zip_x_scaler 1 8>,,,
+            // <&zip_x_scaler 1 8>,,,,
             <&zip_y_scaler 0 1>,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
             <&zip_xy_to_scroll_mapper>;
@@ -575,10 +575,10 @@
 
         DEFAULT_WIN {
             bindings = <
-&kp Q             &kp W        &kp E             &kp R         &kp T                                                        &kp Y            &kp U  &kp I      &kp O       &kp P
-&kp A             &kp S        &kp D             &kp F         &kp G                                                        &kp H            &kp J  &kp K      &lt 10 L    &lt 12 MINUS
-&mt RSHIFT Z      &kp X        &kp C             &kp V         &kp B             &kp LC(N0)                &kp LA(LC(TAB))  &kp N            &kp M  &kp COMMA  &kp PERIOD  &mt RSHIFT SLASH
-&lt 2 LANGUAGE_2  &kp LS(F10)  &mt LEFT_WIN TAB  &kp LEFT_ALT  &mt LCTRL DELETE  &mt LEFT_SHIFT SPACE      &lt 2 ENTER      &lt 4 BACKSPACE  &none  &none      &kp ESCAPE  &lt 6 LANGUAGE_1
+&kp Q             &kp W        &kp E             &kp R         &kp T                                                        &kp Y            &kp U  &kp I      &kp O          &kp P
+&kp A             &kp S        &kp D             &kp F         &kp G                                                        &kp H            &kp J  &kp K      &lt 10 L       &lt 12 MINUS
+&mt RSHIFT Z      &kp X        &kp C             &kp V         &kp B             &kp LC(N0)                &kp LA(LC(TAB))  &kp N            &kp M  &kp COMMA  &kp PERIOD     &mt RSHIFT SLASH
+&lt 2 LANGUAGE_2  &kp LS(F10)  &mt LEFT_WIN TAB  &kp LEFT_ALT  &mt LCTRL DELETE  &mt LEFT_SHIFT SPACE      &lt 2 ENTER      &lt 4 BACKSPACE  &none  &none      &kp RIGHT_ALT  &lt 6 LANGUAGE_1
             >;
         };
 
@@ -586,10 +586,10 @@
 
         DEFAULT_MAC {
             bindings = <
-&kp Q             &kp W                 &kp E      &kp R         &kp T                                                           &kp Y            &kp U  &kp I      &kp O       &kp P
-&kp A             &kp S                 &kp D      &kp F         &kp G                                                           &kp H            &kp J  &kp K      &lt 11 L    &lt 13 MINUS
-&mt RSHIFT Z      &kp X                 &kp C      &kp V         &kp B                    &kp LG(N0)                &kp LA(TAB)  &kp N            &kp M  &kp COMMA  &kp PERIOD  &mt RSHIFT SLASH
-&lt 3 LANGUAGE_2  &kp LC(LEFT_COMMAND)  &kp LCTRL  &kp LEFT_ALT  &mt LEFT_COMMAND DELETE  &mt LEFT_SHIFT SPACE      &lt 3 ENTER  &lt 5 BACKSPACE  &none  &none      &kp ESCAPE  &lt 7 LANGUAGE_1
+&kp Q             &kp W                 &kp E      &kp R         &kp T                                                           &kp Y            &kp U  &kp I      &kp O          &kp P
+&kp A             &kp S                 &kp D      &kp F         &kp G                                                           &kp H            &kp J  &kp K      &lt 11 L       &lt 13 MINUS
+&mt RSHIFT Z      &kp X                 &kp C      &kp V         &kp B                    &kp LG(N0)                &kp LA(TAB)  &kp N            &kp M  &kp COMMA  &kp PERIOD     &mt RSHIFT SLASH
+&lt 3 LANGUAGE_2  &kp LC(LEFT_COMMAND)  &kp LCTRL  &kp LEFT_ALT  &mt LEFT_COMMAND DELETE  &mt LEFT_SHIFT SPACE      &lt 3 ENTER  &lt 5 BACKSPACE  &none  &none      &kp RIGHT_ALT  &lt 7 LANGUAGE_1
             >;
         };
 
