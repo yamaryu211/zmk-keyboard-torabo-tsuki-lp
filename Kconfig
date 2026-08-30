@@ -7,3 +7,26 @@ config ZMK_INPUT_PROCESSOR_SCROLL_INERTIA
     bool "Enable inertia scrolling input processor for REL_X/Y trackpads"
     default y
     depends on ZMK_POINTING
+
+config TORABO_SPLIT_PERIPHERAL_ADV_RECOVERY
+    bool "Recover split peripheral advertising"
+    default y if SHIELD_TORABO_TSUKI_LP_LEFT
+    depends on BT && ZMK_SPLIT && !ZMK_SPLIT_ROLE_CENTRAL
+    help
+      Periodically retries split BLE advertising while the peripheral is
+      disconnected. This recovers from a transient advertising-start failure
+      without requiring a power cycle of the peripheral half.
+
+if TORABO_SPLIT_PERIPHERAL_ADV_RECOVERY
+
+config TORABO_SPLIT_PERIPHERAL_ADV_RECOVERY_INITIAL_DELAY_MS
+    int "Initial advertising recovery delay in milliseconds"
+    default 1500
+    range 100 60000
+
+config TORABO_SPLIT_PERIPHERAL_ADV_RECOVERY_INTERVAL_MS
+    int "Advertising recovery interval in milliseconds"
+    default 3000
+    range 500 60000
+
+endif
