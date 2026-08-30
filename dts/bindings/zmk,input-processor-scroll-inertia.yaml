@@ -1,0 +1,49 @@
+# SPDX-License-Identifier: MIT
+
+description: |
+  Inertia scrolling input processor for REL_X/REL_Y trackpads (without scroller-mode).
+  Tracks XY velocity while the finger moves, then injects decaying XY events after
+  the finger is lifted (detected by idle-timeout-ms with no incoming events).
+  Injected events flow through the full listener chain including zip_xy_to_scroll_mapper.
+
+  Place this processor FIRST in each sub-node of the input listener so that it
+  receives raw XY events before they are converted to scroll events.
+
+compatible: "zmk,input-processor-scroll-inertia"
+
+properties:
+  "#input-processor-cells":
+    type: int
+    required: true
+    const: 0
+
+  decay-permille:
+    type: int
+    default: 920
+    description: |
+      Velocity multiplier applied every 10 ms tick (permille).
+      920 means velocity = velocity * 0.92 per tick.
+      Lower values stop sooner; higher values coast longer (1–999).
+
+  stop-threshold-q8:
+    type: int
+    default: 96
+    description: |
+      Inertia stops when absolute velocity falls below this value (Q8 fixed-point).
+      256 equals 1 XY unit per 10 ms tick. Default 96 ≈ 0.375 units/tick.
+      Lower values allow longer coasting.
+
+  idle-timeout-ms:
+    type: int
+    default: 50
+    description: |
+      Milliseconds of no incoming XY events before inertia starts.
+      Should be longer than the inter-event gap during normal scrolling (~10 ms).
+
+  track-remainders:
+    type: boolean
+    description: |
+      Required by zmk,input-listener for remainder-tracking slot allocation.
+      The inertia processor itself does not use remainders.
+
+input-processor-cells: []

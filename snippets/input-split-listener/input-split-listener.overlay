@@ -9,10 +9,50 @@
         };
     };
 
+    zip_scroll_inertia_tp: zip_scroll_inertia_tp {
+        compatible = "zmk,input-processor-scroll-inertia";
+        #input-processor-cells = <0>;
+        decay-permille = <920>;
+        stop-threshold-q8 = <96>;
+        idle-timeout-ms = <50>;
+        track-remainders;
+    };
+
+    zip_scroll_snap_tp: zip_scroll_snap_tp {
+        compatible = "zmk,input-processor-scroll-snap";
+        #input-processor-cells = <0>;
+        x-threshold = <3 4>;
+        y-threshold = <4 3>;
+        xy-threshold = <3 4>;
+        require-n-samples = <4>;
+        immediate-snap-threshold = <800>;
+        lock-duration-ms = <150>;
+        lock-for-next-n-events = <4>;
+        idle-reset-timeout-ms = <800>;
+        track-remainders;
+    };
+
     pointing_device_split_listener: pointing_device_split_listener {
         compatible = "zmk,input-listener";
         device = <&pointing_device_split>;
         status = "okay";
-        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
-     };
+        /* デフォルト: Mac 方向（WIN_SCROLL_DIR が OFF のとき） */
+        input-processors =
+            <&zip_scroll_inertia_tp>,
+            <&zip_xy_scaler 1 4>,
+            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
+            <&zip_xy_to_scroll_mapper>,
+            <&zip_scroll_snap_tp>;
+
+        scroll_win {
+            /* WIN_SCROLL_DIR (16): bt0_win で tog_on、bt1_mac 等で tog_off */
+            layers = <16>;
+            input-processors =
+                <&zip_scroll_inertia_tp>,
+                <&zip_xy_scaler 3 2>,
+                <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+                <&zip_xy_to_scroll_mapper>,
+                <&zip_scroll_snap_tp>;
+        };
+    };
 };

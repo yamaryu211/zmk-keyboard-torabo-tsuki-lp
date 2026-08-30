@@ -4,6 +4,16 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: sekigon-gonnoc
       url-base: https://github.com/sekigon-gonnoc
+    - name: badjeff
+      url-base: https://github.com/badjeff
+    - name: te9no
+      url-base: https://github.com/te9no
+    - name: kot149
+      url-base: https://github.com/kot149
+    - name: elpekenin
+      url-base: https://github.com/elpekenin
+    - name: yamaryu211
+      url-base: https://github.com/yamaryu211
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -26,6 +36,26 @@ manifest:
       revision: v0.2
     - name: zmk-feature-non-lipo-battery-management
       remote: sekigon-gonnoc
+      revision: main
+    - name: zmk-input-processor-report-rate-limit
+      remote: badjeff
+      revision: f43f37aae7aaa7bf0ec4d432683b873a7e3a8efa
+    - name: zmk-input-processor-keybind
+      remote: te9no
+      revision: main
+    - name: zmk-scroll-snap
+      remote: yamaryu211
+      revision: yamaryu211
+    - name: zmk-userspace
+      remote: elpekenin
+      # main が ZMK 最新向けに更新され v0.3 と非互換になったため、
+      # v0.3 互換の最後のコミット(7733e66 の直前)に固定
+      revision: f65693dff35d99c82be22e30f5fe41eafb7cb4f3
+    - name: zmk-input-processor-temp-layer-threshold
+      remote: yamaryu211
+      revision: main
+    - name: zmk-pointing-acceleration
+      remote: yamaryu211
       revision: main
   self:
     path: config

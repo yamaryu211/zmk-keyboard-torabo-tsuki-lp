@@ -1,0 +1,39 @@
+# Copyright (c) 2024 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+description: |
+  Scroll acceleration input processor using sigmoid function.
+  Accelerates scroll events based on movement speed.
+
+compatible: "zmk,input-processor-scroll-acceleration"
+
+properties:
+  "#input-processor-cells":
+    type: int
+    required: true
+    const: 1
+
+  track-remainders:
+    type: boolean
+
+  decay-ms:
+    type: int
+    default: 100
+    description: |
+      Milliseconds without movement before speed calculation resets.
+
+  max-acceleration:
+    type: int
+    default: 10
+    description: |
+      Maximum acceleration multiplier (e.g., 10 means up to 10x speed).
+
+  min-speed-threshold:
+    type: int
+    default: 1
+    description: |
+      Minimum absolute value before acceleration is applied.
+      Values at or below this threshold are passed through unchanged.
+
+input-processor-cells:
+  - sensitivity
