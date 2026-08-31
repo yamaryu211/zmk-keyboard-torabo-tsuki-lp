@@ -19,12 +19,12 @@ manifest:
   projects:
     - name: zmk
       remote: cormoran
-      revision: v0.3-branch+dya
+      revision: main+dya
       import: app/west.yml
     - name: zmk-component-bmp-boost
       remote: sekigon-gonnoc
       import: west.yml
-      revision: v0.2
+      revision: master
     - name: zmk-feature-status-led
       remote: sekigon-gonnoc
       revision: main
@@ -35,13 +35,13 @@ manifest:
       remote: sekigon-gonnoc
     - name: zmk-feature-cdc-acm-bootloader-trigger
       remote: sekigon-gonnoc
-      revision: v0.2
+      revision: main
     - name: zmk-feature-non-lipo-battery-management
       remote: sekigon-gonnoc
       revision: main
     - name: zmk-input-processor-report-rate-limit
       remote: badjeff
-      revision: f43f37aae7aaa7bf0ec4d432683b873a7e3a8efa
+      revision: main
     - name: zmk-input-processor-keybind
       remote: te9no
       revision: main
@@ -50,26 +50,52 @@ manifest:
       revision: yamaryu211
     - name: zmk-userspace
       remote: elpekenin
-      # main が ZMK 最新向けに更新され v0.3 と非互換になったため、
-      # v0.3 互換の最後のコミット(7733e66 の直前)に固定
-      revision: f65693dff35d99c82be22e30f5fe41eafb7cb4f3
+      revision: main
     - name: zmk-input-processor-temp-layer-threshold
       remote: yamaryu211
-      revision: main
+      revision: feat/zmk0.4
     - name: zmk-pointing-acceleration
       remote: yamaryu211
       revision: main
     - name: zmk-module-ble-management
       remote: cormoran
-      revision: zmk-v0.3.0.0
+      revision: main
     - name: zmk-module-battery-history
       remote: cormoran
       revision: main
     - name: zmk-module-settings-rpc
       remote: cormoran
-      revision: zmk-v0.3.0.0
+      revision: main
     - name: zmk-module-runtime-input-processor
       remote: cormoran
-      revision: zmk-v0.3.0.0
+      revision: main
+    - name: zmk-feature-custom-settings
+      remote: cormoran
+      revision: main
+    - name: zmk-feature-runtime-combo
+      remote: cormoran
+      revision: main
+    - name: zmk-feature-runtime-macro
+      remote: cormoran
+      revision: main
+    - name: zmk-feature-os-detection
+      remote: cormoran
+      revision: main
+    - name: zmk-feature-default-layer
+      remote: cormoran
+      revision: codex/custom-rpc-rewrite
+      import: true
+    - name: zmk-feature-device-info
+      remote: cormoran
+      revision: main
+    - name: zmk-feature-kscan-diagnostics
+      remote: cormoran
+      revision: main
+    - name: zmk-feature-watchdog
+      remote: cormoran
+      revision: main
+    - name: zmk-feature-input-stream
+      remote: cormoran
+      revision: main
   self:
     path: config

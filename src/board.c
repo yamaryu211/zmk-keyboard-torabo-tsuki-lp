@@ -237,7 +237,9 @@ static struct bt_conn_cb power_mgmt_bt_conn_callbacks = {
     .disconnected = power_mgmt_bt_conn_disconnected_cb,
 };
 
-static void mouse_input_callback(struct input_event *evt) {
+static void mouse_input_callback(struct input_event *evt, void *user_data) {
+    (void)evt;
+    (void)user_data;
     reset_idle_timer();
 }
 
@@ -259,7 +261,7 @@ static int split_power_mgmt_init(void) {
     return 0;
 }
 
-INPUT_CALLBACK_DEFINE(DEVICE_DT_GET_OR_NULL(DT_NODELABEL(trackball)) , mouse_input_callback);
+INPUT_CALLBACK_DEFINE(DEVICE_DT_GET_OR_NULL(DT_NODELABEL(trackball)), mouse_input_callback, NULL);
 
 SYS_INIT(split_power_mgmt_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
 
