@@ -39,20 +39,24 @@
         /* デフォルト: Mac 方向（WIN_SCROLL_DIR が OFF のとき） */
         input-processors =
             <&zip_scroll_inertia_tp>,
-            <&zip_xy_scaler 1 4>,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_snap_tp>;
+            <&mouse_runtime_input_processor>,
+            <&scroll_runtime_input_processor>;
 
         scroll_win {
             /* WIN_SCROLL_DIR (16): bt0_win で tog_on、bt1_mac 等で tog_off */
             layers = <16>;
             input-processors =
                 <&zip_scroll_inertia_tp>,
-                <&zip_xy_scaler 3 2>,
                 <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-                <&zip_xy_to_scroll_mapper>,
-                <&zip_scroll_snap_tp>;
+                <&mouse_runtime_input_processor>,
+                <&scroll_runtime_input_processor>;
         };
     };
+};
+
+&scroll_runtime_input_processor {
+        x-codes = <INPUT_REL_X>;
+		y-codes = <INPUT_REL_Y>;
+		xy-to-scroll-enabled;
 };
