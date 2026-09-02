@@ -226,6 +226,8 @@
         excluded-positions = <
             16  // J
             17  // K
+            29  // ,
+            30  // .
             36  // Delete
             37  // Space
         >;
