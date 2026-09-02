@@ -126,7 +126,6 @@
         input-processors =
             <&zip_scroll_acceleration 6>,
             <&zip_xy_scaler 1 8>,
-            // <&zip_xy_scaler 1 4>,,,,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
             <&zip_xy_to_scroll_mapper>,
             <&tb_scroll_runtime>;
@@ -155,7 +154,6 @@
         input-processors =
             <&zip_scroll_acceleration 6>,
             <&zip_y_scaler 1 8>,
-            // <&zip_y_scaler 1 4>,,,,
             <&zip_x_scaler 0 1>,
             <&zip_xy_to_scroll_mapper>,
             <&tb_scroll_runtime>;
@@ -168,7 +166,6 @@
         input-processors =
             <&zip_scroll_acceleration 6>,
             <&zip_x_scaler 1 8>,
-            // <&zip_x_scaler 1 8>,,,,
             <&zip_y_scaler 0 1>,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
             <&zip_xy_to_scroll_mapper>,
@@ -247,6 +244,8 @@
         excluded-positions = <
             16  // J
             17  // K
+            29  // ,
+            30  // .
             36  // Delete
             37  // Space
         >;
@@ -338,6 +337,11 @@
         caps_lock {
             bindings = <&kp CAPSLOCK>;
             key-positions = <10 11>;
+        };
+
+        middle_click_alt {
+            bindings = <&mkp MB3>;
+            key-positions = <29 30>;
         };
     };
 
@@ -621,10 +625,10 @@
         NUM_WIN {
             display-name = "NUM_WIN";
             bindings = <
-&sys_reset    &kp NUMBER_7  &kp NUMBER_8      &kp NUMBER_9      &none                                                      &kp LG(LS(LEFT))  &kp LG(UP_ARROW)  &kp LG(TAB)  &kp LG(LS(RIGHT))  &kp LA(PRINTSCREEN)
-&none         &kp NUMBER_4  &kp NUMBER_5      &kp NUMBER_6      &none                                                      &kp LEFT          &kp DOWN          &kp UP       &kp RIGHT          &kp LS(EQUAL)
-&kp NUMBER_0  &kp NUMBER_1  &kp NUMBER_2      &kp NUMBER_3      &none                 &kp LESS_THAN      &kp GREATER_THAN  &kp HOME          &kp PAGE_DOWN     &kp PAGE_UP  &kp END            &kp ASTERISK
-&mo 9         &trans        &kp LS(LEFT_WIN)  &kp LS(LEFT_ALT)  &kp LS(LEFT_CONTROL)  &trans             &trans            &trans            &none             &none        &none              &mo 9
+&sys_reset    &kp NUMBER_7  &kp NUMBER_8      &kp NUMBER_9      &none                                                      &kp LG(LS(LEFT))  &kp LG(DOWN)   &kp LG(UP_ARROW)  &kp LG(LS(RIGHT))  &kp LG(TAB)
+&none         &kp NUMBER_4  &kp NUMBER_5      &kp NUMBER_6      &none                                                      &kp LEFT          &kp DOWN       &kp UP            &kp RIGHT          &kp LS(EQUAL)
+&kp NUMBER_0  &kp NUMBER_1  &kp NUMBER_2      &kp NUMBER_3      &none                 &kp LESS_THAN      &kp GREATER_THAN  &kp HOME          &kp PAGE_DOWN  &kp PAGE_UP       &kp END            &kp ASTERISK
+&mo 9         &trans        &kp LS(LEFT_WIN)  &kp LS(LEFT_ALT)  &kp LS(LEFT_CONTROL)  &trans             &trans            &trans            &none          &none             &none              &mo 9
             >;
         };
 
@@ -633,10 +637,10 @@
         NUM_MAC {
             display-name = "NUM_MAC";
             bindings = <
-&sys_reset  &kp N7                  &kp N8                &kp N9            &none                                                  &kp LC(LA(LG(LEFT)))  &kp LC(LA(RETURN))  &kp LC(UP_ARROW)  &kp LC(LA(LG(RIGHT)))  &kp LS(LG(NUMBER_4))
-&none       &kp N4                  &kp N5                &kp N6            &none                                                  &kp LEFT              &kp DOWN            &kp UP            &kp RIGHT              &kp LS(EQUAL)
-&kp N0      &kp N1                  &kp N2                &kp N3            &none             &kp LESS_THAN      &kp GREATER_THAN  &kp LG(LEFT)          &kp LG(DOWN)        &kp LG(UP)        &kp LG(RIGHT)          &kp ASTERISK
-&mo 9       &kp LC(LG(LEFT_SHIFT))  &kp LS(LEFT_CONTROL)  &kp LS(LEFT_ALT)  &kp LS(LEFT_GUI)  &trans             &trans            &trans                &none               &none             &none                  &mo 9
+&sys_reset  &kp N7                  &kp N8                &kp N9            &none                                                  &kp LC(LA(LG(LEFT)))  &kp LC(DOWN)  &kp LC(UP_ARROW)  &kp LC(LA(LG(RIGHT)))  &kp LC(LA(ENTER))
+&none       &kp N4                  &kp N5                &kp N6            &none                                                  &kp LEFT              &kp DOWN      &kp UP            &kp RIGHT              &kp LS(EQUAL)
+&kp N0      &kp N1                  &kp N2                &kp N3            &none             &kp LESS_THAN      &kp GREATER_THAN  &kp LG(LEFT)          &kp LG(DOWN)  &kp LG(UP)        &kp LG(RIGHT)          &kp ASTERISK
+&mo 9       &kp LC(LG(LEFT_SHIFT))  &kp LS(LEFT_CONTROL)  &kp LS(LEFT_ALT)  &kp LS(LEFT_GUI)  &trans             &trans            &trans                &none         &none             &none                  &mo 9
             >;
         };
 
@@ -669,10 +673,10 @@
         FUNC_SCROLL_WIN {
             display-name = "FUNC_SCROLL_WIN";
             bindings = <
-&kp F12  &kp F7      &kp F8  &kp F9  &trans                                           &kp LC(T)  &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &kp LC(W)  &kp LS(LG(S))
-&kp F11  &kp F4      &kp F5  &kp F6  &trans                                           &trans     &kp LS(LC(TAB))  &kp LC(TAB)        &trans     &trans
-&kp F10  &kp LC(F1)  &kp F2  &kp F3  &trans  &kp LEFT_BRACKET      &kp RIGHT_BRACKET  &trans     &kp LA(LEFT)     &kp LA(RIGHT)      &trans     &trans
-&trans   &trans      &trans  &trans  &trans  &trans                &trans             &trans     &trans           &none              &none      &none
+&kp F12  &kp F7      &kp F8  &kp F9  &none                                            &none   &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &none  &kp LS(LG(S))
+&kp F11  &kp F4      &kp F5  &kp F6  &none                                            &none   &kp LS(LC(TAB))  &kp LC(TAB)        &none  &none
+&kp F10  &kp LC(F1)  &kp F2  &kp F3  &none   &kp LEFT_BRACKET      &kp RIGHT_BRACKET  &none   &kp LA(LEFT)     &kp LA(RIGHT)      &none  &none
+&trans   &trans      &trans  &trans  &trans  &trans                &trans             &trans  &trans           &none              &none  &none
             >;
         };
 
@@ -681,10 +685,10 @@
         FUNC_SCROLL_MAC {
             display-name = "FUNC_SCROLL_MAC";
             bindings = <
-&kp F12  &kp F7      &kp F8  &kp F9  &trans                                           &kp LG(T)  &kp LG(PAGE_UP)  &kp LG(PAGE_DOWN)  &kp LG(W)  &kp LS(LG(NUMBER_4))
-&kp F11  &kp F4      &kp F5  &kp F6  &trans                                           &trans     &kp LS(LC(TAB))  &kp LC(TAB)        &trans     &trans
-&kp F10  &kp LG(F1)  &kp F2  &kp F3  &trans  &kp LEFT_BRACKET      &kp RIGHT_BRACKET  &trans     &kp LG(LEFT)     &kp LG(RIGHT)      &trans     &trans
-&trans   &trans      &trans  &trans  &trans  &trans                &trans             &trans     &trans           &none              &none      &none
+&kp F12  &kp F7      &kp F8  &kp F9  &none                                            &none   &kp LG(PAGE_UP)  &kp LG(PAGE_DOWN)  &none  &kp LS(LG(NUMBER_4))
+&kp F11  &kp F4      &kp F5  &kp F6  &none                                            &none   &kp LS(LC(TAB))  &kp LC(TAB)        &none  &none
+&kp F10  &kp LG(F1)  &kp F2  &kp F3  &none   &kp LEFT_BRACKET      &kp RIGHT_BRACKET  &none   &kp LG(LEFT)     &kp LG(RIGHT)      &none  &none
+&trans   &trans      &trans  &trans  &trans  &trans                &trans             &trans  &trans           &none              &none  &none
             >;
         };
 
@@ -693,10 +697,10 @@
         AML {
             display-name = "AML";
             bindings = <
-&trans  &trans  &trans  &trans  &trans                      &trans  &trans    &trans    &trans  &trans
-&trans  &trans  &trans  &trans  &trans                      &trans  &mkp MB1  &mkp MB2  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans    &trans    &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &none     &none     &trans  &trans
+&trans  &trans  &trans  &trans  &trans                      &trans  &trans    &trans    &trans    &trans
+&trans  &trans  &trans  &trans  &trans                      &trans  &mkp MB1  &mkp MB2  &trans    &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans    &mkp MB1  &mkp MB2  &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &none     &none     &trans    &trans
             >;
         };
 
