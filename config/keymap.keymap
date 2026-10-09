@@ -397,6 +397,17 @@
             label = "BT3_IPHONE";
         };
 
+        bt4_iPadMini: bt4_iPadMini {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&bt BT_SEL 4 &bt BT_DISC 0 &bt BT_DISC 1 &bt BT_DISC 2 &bt BT_DISC 3>,
+                <&macro_wait_time 200>,
+                <&df 1 &tog_off WIN_SCROLL_DIR>;
+
+            label = "BT4_IPADMINI";
+        };
+
         to_scroll_layer_win: to_scroll_layer_win {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -710,7 +721,7 @@
             display-name = "KBD_SETTING";
             bindings = <
 &trans  &trans  &trans  &trans  &trans                              &kp C_BRIGHTNESS_DEC  &kp C_BRIGHTNESS_INC  &kp K_MUTE  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP
-&trans  &trans  &trans  &trans  &trans                              &bt0_win              &bt1_mac              &bt2_iPad   &bt3_iPhone        &bt BT_SEL 4
+&trans  &trans  &trans  &trans  &trans                              &bt0_win              &bt1_mac              &bt2_iPad   &bt3_iPhone        &bt4_iPadMini
 &trans  &trans  &trans  &trans  &trans  &trans      &bt BT_CLR_ALL  &trans                &trans                &trans      &trans             &bt BT_CLR
 &trans  &trans  &trans  &trans  &trans  &trans      &out OUT_TOG    &trans                &none                 &none       &studio_unlock     &trans
             >;
