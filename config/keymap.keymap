@@ -4,6 +4,7 @@
 #include <scroll-snap.dtsi>
 #include "elpekenin/behaviors.dtsi"
 #include <behaviors/input_gestures_accel.dtsi>
+#include <behaviors/runtime_macro.dtsi>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
@@ -52,6 +53,20 @@
 
 / {
     chosen { zmk,physical-layout = &physical_layout_s; };
+
+    /omit-if-no-ref/
+    tb_scroll_runtime: tb_scroll_runtime {
+        compatible = "zmk,input-processor-runtime";
+        processor-label = "tbscrl";
+        type = <INPUT_EV_REL>;
+        x-codes = <INPUT_REL_HWHEEL>;
+        y-codes = <INPUT_REL_WHEEL>;
+        scale-multiplier = <1>;
+        scale-divisor = <1>;
+        rotation-degrees = <0>;
+        track-remainders;
+        #input-processor-cells = <0>;
+    };
 };
 
 &zip_scroll_snap {
@@ -102,7 +117,7 @@
         <&zip_report_rate_limit 8>,
         <&zip_temp_layer_threshold AML 30000>,
         <&pointer_accel>,
-        <&zip_xy_scaler 1 1>;
+        <&mouse_runtime_input_processor>;
 
     // 自由スクロール（Mac）
 
@@ -112,7 +127,8 @@
             <&zip_scroll_acceleration 6>,
             <&zip_xy_scaler 1 8>,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_xy_to_scroll_mapper>;
+            <&zip_xy_to_scroll_mapper>,
+            <&tb_scroll_runtime>;
 
         // <&zip_scroll_snap>;
     };
@@ -125,7 +141,8 @@
             <&zip_scroll_acceleration 6>,
             <&zip_xy_scaler 1 2>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_xy_to_scroll_mapper>;
+            <&zip_xy_to_scroll_mapper>,
+            <&tb_scroll_runtime>;
 
         // <&zip_scroll_snap>;
     };
@@ -138,7 +155,8 @@
             <&zip_scroll_acceleration 6>,
             <&zip_y_scaler 1 8>,
             <&zip_x_scaler 0 1>,
-            <&zip_xy_to_scroll_mapper>;
+            <&zip_xy_to_scroll_mapper>,
+            <&tb_scroll_runtime>;
     };
 
     // 横スクロール（Mac）
@@ -150,7 +168,8 @@
             <&zip_x_scaler 1 8>,
             <&zip_y_scaler 0 1>,
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,
-            <&zip_xy_to_scroll_mapper>;
+            <&zip_xy_to_scroll_mapper>,
+            <&tb_scroll_runtime>;
     };
 
     // 縦スクロール（Windows）
@@ -162,7 +181,8 @@
             <&zip_y_scaler 1 2>,
             <&zip_x_scaler 0 1>,
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_xy_to_scroll_mapper>;
+            <&zip_xy_to_scroll_mapper>,
+            <&tb_scroll_runtime>;
     };
 
     // 横スクロール（Windows）
@@ -173,7 +193,8 @@
             <&zip_scroll_acceleration 6>,
             <&zip_x_scaler 1 2>,
             <&zip_y_scaler 0 1>,
-            <&zip_xy_to_scroll_mapper>;
+            <&zip_xy_to_scroll_mapper>,
+            <&tb_scroll_runtime>;
     };
 
     // トラックボール→矢印キー変換（数字レイヤー）
@@ -374,6 +395,17 @@
                 <&df 1 &tog_off WIN_SCROLL_DIR>;
 
             label = "BT3_IPHONE";
+        };
+
+        bt4_iPadMini: bt4_iPadMini {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&bt BT_SEL 4 &bt BT_DISC 0 &bt BT_DISC 1 &bt BT_DISC 2 &bt BT_DISC 3>,
+                <&macro_wait_time 200>,
+                <&df 1 &tog_off WIN_SCROLL_DIR>;
+
+            label = "BT4_IPADMINI";
         };
 
         to_scroll_layer_win: to_scroll_layer_win {
@@ -578,6 +610,7 @@
         // pos: 0-9(Row1), 10-19(Row2), 20-31(Row3, 25/26=inner), 32-43(Row4/thumb)
 
         DEFAULT_WIN {
+            display-name = "DEFAULT_WIN";
             bindings = <
 &kp Q             &kp W        &kp E             &kp R         &kp T                                                        &kp Y            &kp U  &kp I      &kp O          &kp P
 &kp A             &kp S        &kp D             &kp F         &kp G                                                        &kp H            &kp J  &kp K      &lt 10 L       &lt 12 MINUS
@@ -589,6 +622,7 @@
         // レイヤー1: デフォルト（Mac）
 
         DEFAULT_MAC {
+            display-name = "DEFAULT_MAC";
             bindings = <
 &kp Q             &kp W                 &kp E      &kp R         &kp T                                                           &kp Y            &kp U  &kp I      &kp O          &kp P
 &kp A             &kp S                 &kp D      &kp F         &kp G                                                           &kp H            &kp J  &kp K      &lt 11 L       &lt 13 MINUS
@@ -600,6 +634,7 @@
         // レイヤー2: 数字（Windows）
 
         NUM_WIN {
+            display-name = "NUM_WIN";
             bindings = <
 &sys_reset    &kp NUMBER_7  &kp NUMBER_8      &kp NUMBER_9      &none                                                      &kp LG(LS(LEFT))  &kp LG(DOWN)   &kp LG(UP_ARROW)  &kp LG(LS(RIGHT))  &kp LG(TAB)
 &none         &kp NUMBER_4  &kp NUMBER_5      &kp NUMBER_6      &none                                                      &kp LEFT          &kp DOWN       &kp UP            &kp RIGHT          &kp LS(EQUAL)
@@ -611,6 +646,7 @@
         // レイヤー3: 数字（Mac）
 
         NUM_MAC {
+            display-name = "NUM_MAC";
             bindings = <
 &sys_reset  &kp N7                  &kp N8                &kp N9            &none                                                  &kp LC(LA(LG(LEFT)))  &kp LC(DOWN)  &kp LC(UP_ARROW)  &kp LC(LA(LG(RIGHT)))  &kp LC(LA(ENTER))
 &none       &kp N4                  &kp N5                &kp N6            &none                                                  &kp LEFT              &kp DOWN      &kp UP            &kp RIGHT              &kp LS(EQUAL)
@@ -622,6 +658,7 @@
         // レイヤー4: 記号（Windows）
 
         SYMBOL_WIN {
+            display-name = "SYMBOL_WIN";
             bindings = <
 &kp SQT      &kp DOUBLE_QUOTES  &kp EXCLAMATION   &kp QUESTION      &kp TILDE                                              &kp BACKSLASH  &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans    &kp PERCENT
 &kp AT_SIGN  &kp SEMICOLON      &kp DOLLAR        &kp LESS_THAN     &kp GREATER_THAN                                       &kp HASH       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp PIPE  &kp EQUAL
@@ -633,6 +670,7 @@
         // レイヤー5: 記号（Mac）
 
         SYMBOL_MAC {
+            display-name = "SYMBOL_MAC";
             bindings = <
 &kp SQT      &kp DOUBLE_QUOTES  &kp EXCLAMATION  &kp QUESTION      &kp TILDE                                              &kp BACKSLASH  &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans    &kp PERCENT
 &kp AT_SIGN  &kp SEMICOLON      &kp DOLLAR       &kp LESS_THAN     &kp GREATER_THAN                                       &kp HASH       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp PIPE  &kp EQUAL
@@ -644,6 +682,7 @@
         // レイヤー6: ファンクション+スクロール（Windows）
 
         FUNC_SCROLL_WIN {
+            display-name = "FUNC_SCROLL_WIN";
             bindings = <
 &kp F12  &kp F7      &kp F8  &kp F9  &none                                            &none   &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &none  &kp LS(LG(S))
 &kp F11  &kp F4      &kp F5  &kp F6  &none                                            &none   &kp LS(LC(TAB))  &kp LC(TAB)        &none  &none
@@ -655,6 +694,7 @@
         // レイヤー7: ファンクション+スクロール（Mac）
 
         FUNC_SCROLL_MAC {
+            display-name = "FUNC_SCROLL_MAC";
             bindings = <
 &kp F12  &kp F7      &kp F8  &kp F9  &none                                            &none   &kp LG(PAGE_UP)  &kp LG(PAGE_DOWN)  &none  &kp LS(LG(NUMBER_4))
 &kp F11  &kp F4      &kp F5  &kp F6  &none                                            &none   &kp LS(LC(TAB))  &kp LC(TAB)        &none  &none
@@ -666,6 +706,7 @@
         // レイヤー8: 自動マウスレイヤー（AML）
 
         AML {
+            display-name = "AML";
             bindings = <
 &trans  &trans  &trans  &trans  &trans                      &trans  &trans    &trans    &trans    &trans
 &trans  &trans  &trans  &trans  &trans                      &trans  &mkp MB1  &mkp MB2  &trans    &trans
@@ -677,17 +718,19 @@
         // レイヤー9: キーボード設定
 
         KBD_SETTING {
+            display-name = "KBD_SETTING";
             bindings = <
 &trans  &trans  &trans  &trans  &trans                              &kp C_BRIGHTNESS_DEC  &kp C_BRIGHTNESS_INC  &kp K_MUTE  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP
-&trans  &trans  &trans  &trans  &trans                              &bt0_win              &bt1_mac              &bt2_iPad   &bt3_iPhone        &bt BT_SEL 4
+&trans  &trans  &trans  &trans  &trans                              &bt0_win              &bt1_mac              &bt2_iPad   &bt3_iPhone        &bt4_iPadMini
 &trans  &trans  &trans  &trans  &trans  &trans      &bt BT_CLR_ALL  &trans                &trans                &trans      &trans             &bt BT_CLR
-&trans  &trans  &trans  &trans  &trans  &trans      &out OUT_TOG    &trans                &none                 &none       &trans             &trans
+&trans  &trans  &trans  &trans  &trans  &trans      &out OUT_TOG    &trans                &none                 &none       &studio_unlock     &trans
             >;
         };
 
         // レイヤー10: 縦スクロール（Windows）
 
         SCROLL_VER_WIN {
+            display-name = "SCROLL_VER_WIN";
             bindings = <
 &kp F12  &kp F7      &kp F8  &kp F9  &trans                                           &none   &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &trans  &kp LS(LG(S))
 &kp F11  &kp F4      &kp F5  &kp F6  &trans                                           &trans  &kp LS(LC(TAB))  &kp LC(TAB)        &trans  &trans
@@ -699,6 +742,7 @@
         // レイヤー11: 縦スクロール（Mac）
 
         SCROLL_VER_MAC {
+            display-name = "SCROLL_VER_MAC";
             bindings = <
 &kp F12  &kp F7      &kp F8  &kp F9  &trans                                           &none   &kp LG(PAGE_UP)  &kp LG(PAGE_DOWN)  &none   &kp LS(LG(NUMBER_4))
 &kp F11  &kp F4      &kp F5  &kp F6  &trans                                           &trans  &kp LS(LC(TAB))  &kp LC(TAB)        &trans  &trans
@@ -710,6 +754,7 @@
         // レイヤー12: 横スクロール（Windows）
 
         SCROLL_HOR_WIN {
+            display-name = "SCROLL_HOR_WIN";
             bindings = <
 &kp F12  &kp F7      &kp F8  &kp F9  &trans                                           &none   &kp LC(PAGE_UP)  &kp LC(PAGE_DOWN)  &trans  &kp LS(LG(S))
 &kp F11  &kp F4      &kp F5  &kp F6  &trans                                           &trans  &kp LS(LC(TAB))  &kp LC(TAB)        &trans  &trans
@@ -721,6 +766,7 @@
         // レイヤー13: 横スクロール（Mac）
 
         SCROLL_HOR_MAC {
+            display-name = "SCROLL_HOR_MAC";
             bindings = <
 &kp F12  &kp F7      &kp F8  &kp F9  &trans                                           &none   &kp LG(PAGE_UP)  &kp LG(PAGE_DOWN)  &none   &kp LS(LG(NUMBER_4))
 &kp F11  &kp F4      &kp F5  &kp F6  &trans                                           &trans  &kp LS(LC(TAB))  &kp LC(TAB)        &trans  &trans
@@ -732,6 +778,7 @@
         // レイヤー14: ジェスチャー（Windows）
 
         GESTURE_WIN {
+            display-name = "GESTURE_WIN";
             bindings = <
 &trans  &trans  &trans  &trans  &trans                      &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans                      &trans  &trans  &trans  &trans  &trans
@@ -743,6 +790,7 @@
         // レイヤー15: ジェスチャー（Mac）
 
         GESTURE_MAC {
+            display-name = "GESTURE_MAC";
             bindings = <
 &trans  &trans  &trans  &trans  &trans                      &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans                      &trans  &trans  &trans  &trans  &trans
@@ -755,6 +803,7 @@
         // bt0_win で tog_on、bt1_mac/bt2_iPad/bt3_iPhone で tog_off
 
         WIN_SCROLL_DIR {
+            display-name = "WIN_SCROLL_DIR";
             bindings = <
 &trans  &trans  &trans  &trans  &trans                      &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans                      &trans  &trans  &trans  &trans  &trans
