@@ -254,6 +254,28 @@
         reset-timeout-ms = <200>;
     };
 
+    // トラックパッド専用: スクロール加速の入力履歴を分離
+    tp_scroll_acceleration: tp_scroll_acceleration {
+        compatible = "zmk,input-processor-scroll-acceleration";
+        #input-processor-cells = <1>;
+        decay-ms = <100>;
+        max-acceleration = <20>;
+        min-speed-threshold = <1>;
+    };
+
+    tp_scroll_runtime: tp_scroll_runtime {
+        compatible = "zmk,input-processor-runtime";
+        processor-label = "tpscrl";
+        type = <INPUT_EV_REL>;
+        x-codes = <INPUT_REL_HWHEEL>;
+        y-codes = <INPUT_REL_WHEEL>;
+        scale-multiplier = <1>;
+        scale-divisor = <1>;
+        rotation-degrees = <0>;
+        track-remainders;
+        #input-processor-cells = <0>;
+    };
+
     zip_scroll_acceleration: zip_scroll_acceleration {
         compatible = "zmk,input-processor-scroll-acceleration";
         #input-processor-cells = <1>;
