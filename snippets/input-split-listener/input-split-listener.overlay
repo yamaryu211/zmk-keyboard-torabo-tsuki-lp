@@ -25,6 +25,7 @@
             <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
             <&zip_temp_layer_threshold 8 30000>,
             <&trackpad_pointer_accel>,
+            <&zip_xy_scaler 3 2>,
             /* 縦長トラックパッドの横移動を補正（加速後に1.5倍） */
             <&zip_x_scaler 3 2>,
             <&mouse_runtime_input_processor>;
