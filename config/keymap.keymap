@@ -51,6 +51,16 @@
 
 // XSレイアウト（Sレイアウト, 44キー）を選択
 
+// ZMK_KEYMAP_LEN uses the largest enabled physical layout's transform.
+// This keymap only supports S; keep M/L available to other keymaps.
+&physical_layout_m {
+    status = "disabled";
+};
+
+&physical_layout_l {
+    status = "disabled";
+};
+
 / {
     chosen { zmk,physical-layout = &physical_layout_s; };
 
